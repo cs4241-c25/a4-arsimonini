@@ -28,6 +28,16 @@ const submitRegistration = async function( event ) {
 
 }
 
+
+const gitButton = async function( event ) {
+    await fetch('/auth/github', {
+        method: "GET",
+        //headers: {"Content-Type": "application/json"}
+    })
+}
+
+
+
 const submitLogin = async function( event ) {
     console.log("is running");
 
