@@ -1,0 +1,116 @@
+.jersey-15-regular {
+    font-family: "Jersey 15", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Nav Bar */
+#NavBar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: Helvetica;
+
+    background-color: #CA3022;
+}
+#NavBar li {
+    float: left;
+    font-family: Helvetica;
+}
+#NavBar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-family: Helvetica;
+}
+#NavBar li a:hover:not(.active) {
+    background-color: #75403B;
+    font-family: Helvetica;
+}
+
+.active {
+    background-color: rgba(255, 218, 0, 100);
+    font-family: Helvetica;
+}
+
+/* About Me / Index */
+table,th,td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    color: #4B3432;
+    font-family: Helvetica;
+}
+
+th {
+    background-color: lightblue;
+    text-align: center;
+    font-size: small;
+    border-color: white;
+    font-family: Helvetica;
+}
+td:nth-child(odd) {
+    background-color: rgba(234, 103, 103, 0.67);
+    text-align: center;
+    color: black;
+    font-size: medium;
+    border-color: white;
+    font-family: Helvetica;
+}
+td:nth-child(even) {
+    background-color: #d15347;
+    text-align: center;
+    color: black;
+    font-size: medium;
+    border-color: white;
+    font-family: Helvetica;
+}
+
+/* General Page */
+body {
+    background-color: #d15347;
+    font-family: Helvetica;
+
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    color: black;
+    font-family: "Jersey 15", serif;
+    font-size: xx-large;
+}
+
+div {
+    display: flex;
+    justify-content: center;
+    font-family: Helvetica;
+}
+
+label {
+    font-family: "Jersey 15", serif;
+    font-size: x-large;
+    text-effect: emboss;
+}
+
+input, text {
+    background-color: blanchedalmond;
+    color: black;
+    text-effect: emboss;
+    font-family: Helvetica;
+}
+
+
+p {
+    display: flex;
+    justify-content: center;
+    font-family: Helvetica;
+}
+
+
+button {
+    font-family: Helvetica;
+}
+

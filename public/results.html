@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CS4241 Assignment 2</title>
+    <meta charset="utf-8">
+    <script src="js/table.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- get rid of favicon error -->
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+15&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+
+
+<body id = resultsBody>
+
+
+<header>
+    <nav id ="NavBar">
+        <ul>
+            <li> <a href="index.html"> Home </a></li>
+            <li> <a href="results.html"> Results </a></li>
+            <li> <a href="login.html"> Log In</a></li>
+        </ul>
+    </nav>
+</header>
+
+<h2>Results Data</h2>
+<p> This is where all of the data for the survey is</p>
+<div class = "flex justify-center">
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table id="bigTable" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Index
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Console Company
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Game Played
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Completion
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Money Spent
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Hours Played
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Hours Per Dollar
+                </th>
+            </tr>
+            </thead>
+            <tbody id="bigTableBody">
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<hr />
+<footer>
+    <p><i>copyright Andrew Simonini, 2025 </i></p>
+</footer>
+
+</body>
+</html>
