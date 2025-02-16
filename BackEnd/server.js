@@ -10,8 +10,11 @@ const url = 'mongodb+srv://simoniniar:arsim@cluster0.jasnw.mongodb.net/';
 
 const connection = new MongoClient(url);
 
+const app = express();
 
-var cors = require('cors');
+const cors = require('cors');
+app.use(cors());
+
 
 const
 
@@ -21,40 +24,9 @@ const
 const users = [];
 
 const GITHUB_CLIENT_ID = "Ov23liBXrySMUvfRX8sK";
-const GITHUB_CLIENT_SECRET = "d0ba9961b1b8d849123b4e9f18e6e90580c824a7";
+const GITHUB_CLIENT_SECRET = "36d4a0c1b6cbe8386c6204c64f26ed6aa656e5dd";
 const GITHUB_CALLBACK_URL = "http://localhost:3000/auth/github/callback"
 
-
-//
-// passport.use(
-//     new GitHubStrategy(
-//         {
-//             clientID: process.env.GITHUB_CLIENT_ID,
-//             clientSecret: process.env.GITHUB_CLIENT_SECRET,
-//             callbackURL: process.env.GITHUB_CALLBACK_URL,
-//         },
-//         async (accessToken, refreshToken, profile, done) => {
-//             const user = await User.findOne({
-//                 accountID: profile._id,
-//                 provider: 'github',
-//             });
-//             if (!user) {
-//                 console.log('Adding new github user to DB...');
-//                 const user = new User({
-//                     accountID: profile._id,
-//                     name: profile.name,
-//                     provider: profile.provider,
-//                 });
-//                 await user.save();
-//                 return done(null, profile);
-//             } else {
-//                 console.log('Adding new github user to DB...');
-//                 return done(null, profile);
-//             }
-//         }
-//
-//     )
-// );
 
 passport.use(new GitHubStrategy({
         clientID: GITHUB_CLIENT_ID,
@@ -62,19 +34,12 @@ passport.use(new GitHubStrategy({
         callbackURL: GITHUB_CALLBACK_URL,
     },
     function(accessToken, refreshToken, profile, done) {
-        User.findOrCreate({ githubId: profile.id }, function (err, user) {
-            return done(err, user);
-        });
+    console.log(accessToken, refreshToken, profile);
     }
 ));
 
 
 
-//Appdata, I should likely try to update this
-//let appdata = []
-
-//Created the server apparently
-const app = express();
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -87,23 +52,6 @@ passport.deserializeUser(function(obj, done) {
 
 
 
-
-var allowedOrigins = ['http://localhost:3000',
-    'https://github.com'];
-app.use(cors({
-    origin: function(origin, callback){
-        // allow requests with no origin
-        // (like mobile apps or curl requests)
-        if(!origin) return callback(null, true);
-        if(allowedOrigins.indexOf(origin) === -1){
-            var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-            return callback(new Error(msg), false);
-        }
-        return callback(null, true);
-    }
-}));
-
 app.use(express.json());
 
 app.use(express.static('public'))
@@ -111,25 +59,7 @@ app.use(express.static('public'))
 app.use(express.urlencoded({ extended: false }));
 
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, dir, "index.html"));
-})
 
-app.get('/index.html', (req, res) => {
-    res.sendFile(path.join(__dirname, dir, "index.html"));
-})
-
-app.get('/results.html', (req, res) => {
-    res.sendFile(path.join(__dirname, dir, "results.html"));
-})
-
-app.get('/login.html', (req, res) => {
-    res.sendFile(path.join(__dirname, dir, "login.html"));
-})
-
-app.get('/register.html', (req, res) => {
-    res.sendFile(path.join(__dirname, dir, "register.html"));
-})
 
 app.get('/table', async (req, res) => {
     //console.log("Table: " + appdata)
@@ -184,12 +114,13 @@ app.get('/auth/github/callback',
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
+        console.log("Made it Here")
         res.redirect('/');
     });
 
 app.post('/submit', (req, res) => {
 
-
+    console.log(req.body)
     //appdata.push(req.body);
     insertNewData(req);
     res.status(200).end()
@@ -220,19 +151,15 @@ app.delete('/delete/:id', (req, res) => {
 
 const appRun = run();
 
-//port - whenever is port number, () - do this function
+// port - whenever is port number, () - do this function
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
 
+
 async function run() {
     await connection.connect().then(()=> console.log("connected to the server"))
-
-    //const collection = await connection.db("testDB").collection("testDBCollection");
-    //const results = await collection.insertOne({"title": "Call of Duty"});
-
-    //console.log(results);
 }
 
 async function insertNewData(req) {
