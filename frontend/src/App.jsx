@@ -12,6 +12,8 @@ import GHConfirmation from "./GHConfirmation.jsx";
 function App() {
   const [count, setCount] = useState(0)
 
+    console.log(process.env.GENERIC);
+
   return (
   <Router>
       <Routes>

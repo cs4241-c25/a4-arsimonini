@@ -4,13 +4,17 @@ const res = require("express/lib/response");
 const MongoClient = require('mongodb').MongoClient;
 const passport = require('passport');
 const GitHubStrategy = require('passport-github2').Strategy
+require('dotenv').config();
+console.log(process.env);
 //const bycrpt = require('bcrypt');
 
-const url = 'mongodb+srv://simoniniar:arsim@cluster0.jasnw.mongodb.net/';
 
-const connection = new MongoClient(url);
+console.log(process.env.URL);
+const connection = new MongoClient(process.env.URL);
 
 const app = express();
+
+app.use("/", express.static("./frontend/dist/"));
 
 const cors = require('cors');
 app.use(cors({origin:"*"}));
@@ -24,15 +28,15 @@ const
 const users = [];
 let GHCurrUser = "";
 
-const GITHUB_CLIENT_ID = "Ov23liBXrySMUvfRX8sK";
-const GITHUB_CLIENT_SECRET = "36d4a0c1b6cbe8386c6204c64f26ed6aa656e5dd";
-const GITHUB_CALLBACK_URL = "http://localhost:3000/auth/github/callback"
+// const GITHUB_CLIENT_ID = "Ov23liBXrySMUvfRX8sK";
+// const GITHUB_CLIENT_SECRET = "36d4a0c1b6cbe8386c6204c64f26ed6aa656e5dd";
+// const GITHUB_CALLBACK_URL = "http://localhost:3000/auth/github/callback"
 
 
 passport.use(new GitHubStrategy({
-        clientID: GITHUB_CLIENT_ID,
-        clientSecret: GITHUB_CLIENT_SECRET,
-        callbackURL: GITHUB_CALLBACK_URL,
+        clientID: process.env.GITHUB_CLIENT_ID,
+        clientSecret: process.env.GITHUB_CLIENT_SECRET,
+        callbackURL: process.env.GITHUB_CALLBACK_URL,
     },
     async function (accessToken, refreshToken, profile, done) {
         //debugPrint("Successfully connected to Github");
@@ -144,7 +148,7 @@ app.get('/auth/github/callback',
         // Successful authentication, redirect home.
         console.log("Made it Here")
         //res.status(200).end()
-        res.redirect('http://localhost:5173/#/GHConfirmation');
+        res.redirect('http://localhost:3000/#/GHConfirmation');
     });
 
 app.post('/submit', (req, res) => {
