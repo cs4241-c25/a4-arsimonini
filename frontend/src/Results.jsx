@@ -26,18 +26,30 @@ function Results() {
 
 
 
-    const handleEdit = async (e)=> {
-        e.preventDefault();
-        console.log(form)
+    const handleEdit = async (param)=> {
+        console.log(param)
 
 
-        let result = await fetch('http://localhost:3000/update/' + form.id, {
-            method: 'POST',
-            body: JSON.stringify({_id: id, username: localStorage.getItem("username"), console: form.console, game: form.game, completion: form.completion, spent: form.spent, hours: form.hours, spentHour: spentHour}),
+
+
+        const id = param;
+        // let nameInput = prompt("Update the Name Here", col0.innerHTML);
+        let consoleInput = prompt("Update the Console Here");
+        let gameInput = prompt("Update the Game Here");
+        let completionInput = prompt("Update the Completion Here");
+        let spentInput = prompt("Update the Money Spent Here");
+        let hoursInput = prompt("Update the Hours Played Here");
+        const spentHour = parseFloat(spentInput) / parseFloat(hoursInput);
+
+
+
+        let result = await fetch('http://localhost:3000/update/' + param, {
+            method: 'PUT',
+            body: JSON.stringify({_id: id, username: localStorage.getItem("username"), console: consoleInput, game: gameInput, completion: completionInput, spent: spentInput, hours: hoursInput, spentHour: spentHour}),
             headers: {'Content-Type': 'application/json'}
         });
-        //result = await result.json();
-        navigate("/Results");
+
+        window.location.reload();
     }
 
 
@@ -93,7 +105,7 @@ function Results() {
                                         <td>{row.hours}</td>
                                         <td>{row.spentHour}</td>
                                         <td>
-                                            <button onClick={handleEdit}>Edit</button>
+                                            <button onClick={() => handleEdit(row._id)}>Edit</button>
                                         </td>
                                         <td>
                                             <button onClick={() => handleDelete(row._id)}>Delete</button>

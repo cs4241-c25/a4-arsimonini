@@ -13,8 +13,8 @@ const connection = new MongoClient(url);
 const app = express();
 
 const cors = require('cors');
-app.use(cors());
-
+app.use(cors({origin:"*"}));
+//, "http:localhost:5173/", "https://github.com/"
 
 const
 
@@ -33,22 +33,39 @@ passport.use(new GitHubStrategy({
         clientSecret: GITHUB_CLIENT_SECRET,
         callbackURL: GITHUB_CALLBACK_URL,
     },
-    function(accessToken, refreshToken, profile, done) {
-    console.log(accessToken, refreshToken, profile);
+    async function (accessToken, refreshToken, profile, done) {
+        //debugPrint("Successfully connected to Github");
+        if (profile) {
+            const collection = await connection.db("testDB").collection("userCollection");
+            let profID = profile.id;
+            let user = await collection.findOne({"githubID": profID});
+
+            if(!user) {
+                console.log("Test to see if !user");
+                user = await collection.insertOne({
+                    githubID: profID,
+                    username: profile.username,
+                });
+            }
+
+            return done(null, user);
+        } else {
+            return done(null, false);
+        }
     }
 ));
 
 
 
-
-passport.serializeUser(function(user, done) {
-    done(null, user);
-});
-
-//See comment above.
-passport.deserializeUser(function(obj, done) {
-    done(null, obj);
-});
+//
+// passport.serializeUser(function(user, done) {
+//     done(null, user);
+// });
+//
+// //See comment above.
+// passport.deserializeUser(function(obj, done) {
+//     done(null, obj);
+// });
 
 
 
@@ -98,7 +115,7 @@ app.post('/login', async (req, res) => {
         }
     } catch {
         console.log('Error creating user');
-        res.redirect('/register.html');
+        //res.redirect('/register.html');
     }
 })
 
@@ -111,11 +128,14 @@ app.get('/auth/github',
     );
 
 app.get('/auth/github/callback',
-    passport.authenticate('github', { failureRedirect: '/login' }),
+    passport.authenticate('github', {
+        session: false,
+        failureRedirect: '/login' }),
     function(req, res) {
         // Successful authentication, redirect home.
         console.log("Made it Here")
-        res.redirect('/');
+        //res.status(200).end()
+        res.redirect('http://localhost:5173/');
     });
 
 app.post('/submit', (req, res) => {

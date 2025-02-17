@@ -34,19 +34,6 @@ function UserInfo() {
         navigate("/");
     }
 
-    const handleAuth = async (e)=> {
-        e.preventDefault();
-        console.log(auth)
-
-        let result = await fetch('http://localhost:3000/auth/github', {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'}
-        });
-        //localStorage.setItem('username', userForm.username);
-        //result = await result.json();
-        navigate("/");
-    }
-
 
     return (
         <>
@@ -77,9 +64,9 @@ function UserInfo() {
                 <button onClick={()=>navigate("/Register")} id="register" type="button"
                         className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
                     Register</button>
-                <button onClick={handleAuth} id="githubButton" type="button"
+                <button  id="githubButton" type="button"
                         className="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">
-                    GitHub LogIn </button>
+                    <a href = "http://localhost:3000/auth/github"> GitHub LogIn </a></button>
             </div>
             </div>
         </>
