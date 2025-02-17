@@ -7,6 +7,7 @@ import HomePage from "./HomePage.jsx";
 import ResultsPage from "./ResultsPage.jsx";
 import LoginPage from "./LoginPage.jsx";
 import RegisterPage from "./RegisterPage.jsx";
+import GHConfirmation from "./GHConfirmation.jsx";
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Results" element = {<ResultsPage />} />
           <Route path="/Login" element = {<LoginPage />} />
           <Route path="/Register" element = {<RegisterPage />} />
+          <Route path="/GHConfirmation" element = {<GHConfirmation />} />
       </Routes>
   </Router>
   )

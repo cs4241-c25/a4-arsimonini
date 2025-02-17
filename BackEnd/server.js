@@ -22,6 +22,7 @@ const
     port = 3000
 
 const users = [];
+let GHCurrUser = "";
 
 const GITHUB_CLIENT_ID = "Ov23liBXrySMUvfRX8sK";
 const GITHUB_CLIENT_SECRET = "36d4a0c1b6cbe8386c6204c64f26ed6aa656e5dd";
@@ -47,6 +48,9 @@ passport.use(new GitHubStrategy({
                     username: profile.username,
                 });
             }
+
+            GHCurrUser = profile.username;
+            console.log(GHCurrUser);
 
             return done(null, user);
         } else {
@@ -81,6 +85,11 @@ app.use(express.urlencoded({ extended: false }));
 app.get('/table', async (req, res) => {
     //console.log("Table: " + appdata)
     const data = await getData(req)
+    res.status(200).json(data)
+})
+
+app.post('/GH', async (req, res) => {
+    const data = GHCurrUser;
     res.status(200).json(data)
 })
 
@@ -123,7 +132,7 @@ app.post('/login', async (req, res) => {
 app.get('/auth/github',
     passport.authenticate('github', { scope: [ 'user:email' ] }),
     function(req, res) {
-        console.log("Made it Here")
+        //console.log("Made it Here")
     }
     );
 
@@ -135,7 +144,7 @@ app.get('/auth/github/callback',
         // Successful authentication, redirect home.
         console.log("Made it Here")
         //res.status(200).end()
-        res.redirect('http://localhost:5173/');
+        res.redirect('http://localhost:5173/#/GHConfirmation');
     });
 
 app.post('/submit', (req, res) => {
