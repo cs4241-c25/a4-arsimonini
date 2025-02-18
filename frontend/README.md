@@ -3,9 +3,16 @@
 
 ## a4-andrew-simonini
 
-your hosting link e.g. 
+IMPORTANT NOTE: WHEN DEPLOYING, THE BUTTONS DO NOT WORK WITH SAFARI.
+PLEASE USE GOOGLE WHEN GRADING THE PROJECT.
 
-Include a very brief summary of your project here and what you changed / added to assignment #3. 
+your hosting link: https://a4-arsimonini-frontend.onrender.com
+
+
+I also have this one: https://a4-arsimonini-backend.onrender.com
+but it doesn't do much
+
+
 I mainly changed to a two server structure with frontend and backend using Vite. This allowed me to changed
 my structure to allign with the React structure and jsx files as a whole. This means, though I run html
 code, I don't use html files. I also finally fixed some of my flex box issues which was nice. Finally,
